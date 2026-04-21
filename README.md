@@ -25,7 +25,24 @@ cd ros2-jazzy-llm-robot-control-docker
 
 ---
 
-## 3. 도커 이미지 빌드
+## 3. OpenAI API 키 설정
+LLM 기반 로봇 제어를 위해 OpenAI API 키를 등록해야 합니다.
+아래 경로에 `.env` 파일을 생성하고 본인의 API 키를 입력해 주세요.
+
+```bash
+nano src/pinky_pro/pinky_llm/pinky_llm/.env
+```
+
+파일 내용을 아래와 같이 작성합니다. `sk-` 뒤에 본인의 OpenAI API 키를 입력하세요.
+```
+OPENAI_API_KEY=sk-여기에_본인의_API_키를_입력하세요
+```
+
+> ⚠️ `.env` 파일이 없으면 `pinky_llm` 패키지 빌드가 실패합니다. 반드시 도커 이미지 빌드 전에 생성해 주세요.
+
+---
+
+## 4. 도커 이미지 빌드
 제공된 Dockerfile을 사용하여 ROS 2 Jazzy와 LLM 로봇 제어에 필요한 모든 패키지가 설치된 개발 환경 이미지를 생성합니다.
 *(인터넷 환경에 따라 이미지 빌드에 약간의 시간이 소요될 수 있습니다.)*
 
@@ -35,7 +52,7 @@ sudo docker build -t ros2_jazzy_pinky .
 
 ---
 
-## 4. 컨테이너 생성 및 실행
+## 5. 컨테이너 생성 및 실행
 빌드된 이미지를 기반으로 컨테이너를 생성하고 내부 터미널로 진입합니다.
 로컬 호스트의 src 폴더가 컨테이너 내부(/home/root/ros2_pinky_ws/src)와 동기화(볼륨 마운트)되므로, 컨테이너 외부에서 코드를 수정해도 즉시 반영됩니다.
 
@@ -56,7 +73,7 @@ sudo docker run -it \
 
 ---
 
-## 5. 자주 사용하는 명령어 모음 (Cheatsheet)
+## 6. 자주 사용하는 명령어 모음 (Cheatsheet)
 
 ### 컨테이너 재접속
 작업을 마치고 컨테이너를 종료한 후, 나중에 다시 접속할 때 사용합니다.
